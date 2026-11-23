@@ -20,6 +20,7 @@
     var q = new URLSearchParams(location.search);
     var standalone = window.navigator.standalone === true ||
       (window.matchMedia && window.matchMedia("(display-mode: standalone)").matches);
+    if (q.get("site") === "1") { return; }   // vem da app (botão «Sobre a ZuelaSom»): fica no site
     if (q.get("app") === "1" || standalone) { location.replace(APP); }
   })();
 </script>
@@ -114,8 +115,6 @@ h1 .rodar span{display:inline-block;animation:entra .55s cubic-bezier(.2,.8,.2,1
 .capa.c2{left:-2%;bottom:6%;rotate:8deg;animation-delay:-2.5s;width:21%}
 .capa.c3{right:-4%;bottom:14%;rotate:12deg;animation-delay:-4.5s;width:19%}
 @keyframes flutua{0%,100%{translate:0 0}50%{translate:0 -14px}}
-.ouvir-disco{position:absolute;left:50%;bottom:-2%;transform:translateX(-50%);z-index:4;font-size:.82rem;font-weight:800;color:var(--creme);
-  background:rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.14);padding:6px 12px;border-radius:999px;white-space:nowrap}
 
 /* onda sonora */
 .onda{position:absolute;left:0;right:0;bottom:0;height:90px;display:flex;align-items:flex-end;gap:3px;padding:0 10px;z-index:2;opacity:.55;
@@ -378,7 +377,6 @@ footer img{height:28px}
       <img class="capa c1" src="img/negritude.jpg" alt="">
       <img class="capa c2" src="img/kagiza.jpg" alt="">
       <img class="capa c3" src="img/rapper.jpg" alt="">
-      <span class="ouvir-disco">passa o rato no disco</span>
     </div>
   </div>
   <a class="desce" href="#lados"><span></span>descobre</a>
