@@ -8,14 +8,13 @@
 <link rel="icon" href="img/zuelasom_simbolo.png">
 <link rel="apple-touch-icon" href="img/zuelasom_simbolo.png">
 <meta property="og:title" content="ZuelaSom — o som que fala">
-<meta property="og:description" content="Música urbana independente. 30 s grátis sem conta, tudo com uma conta grátis. Para artistas: Studio, Loja, apoios e bilhetes.">
-<meta property="og:image" content="https://zuelasom.aauts.pt/img/app_inicio.jpg">
+<meta property="og:description" content="Música urbana independente. 30 s grátis sem conta, tudo com uma conta grátis. Para artistas: Studio, Loja, apoios e bilhetes com QR.">
+<meta property="og:image" content="https://zuelasom.aauts.pt/img/app_studio_analise.jpg">
 <meta property="og:url" content="https://zuelasom.aauts.pt/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0e0e10">
 <script>
-  // Página de entrada da ZuelaSom (zuelasom.aauts.pt). Com ?app=1, ou aberta como app instalada,
-  // segue logo para a app no Streamlit (como no AVAI).
+  // Com ?app=1, ou aberta como app instalada, segue logo para a app (como no AVAI).
   (function () {
     var APP = "https://zuelasom.streamlit.app/";
     var q = new URLSearchParams(location.search);
@@ -26,143 +25,327 @@
 </script>
 <style>
 :root{
-  --laranja:#ff8c00; --laranja2:#ffb357; --creme:#ffd9a8; --fundo:#0e0e10; --fundo2:#141418; --cartao:#1b1b20;
-  --castanho1:#2a201b; --castanho2:#33261f; --texto:#f2f2f2; --suave:#b8b8c0; --borda:rgba(255,140,0,.28);
+  --laranja:#ff8c00; --laranja2:#ffb357; --creme:#ffd9a8; --fundo:#0b0b0d; --fundo2:#121216; --cartao:#19191e;
+  --castanho1:#2a201b; --castanho2:#33261f; --texto:#f4f2ef; --suave:#b5b3b8; --borda:rgba(255,140,0,.28);
+  --raio:20px;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--fundo);color:var(--texto);font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;line-height:1.55}
+body{margin:0;background:var(--fundo);color:var(--texto);font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;line-height:1.55;overflow-x:hidden}
 a{color:var(--laranja2)}
 img{max-width:100%;display:block}
-.wrap{max-width:1160px;margin:0 auto;padding:0 22px}
-header{position:sticky;top:0;z-index:20;background:rgba(14,14,16,.88);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,140,0,.14)}
-header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:64px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 22px}
+.kicker{display:inline-flex;align-items:center;gap:8px;color:var(--laranja);font-weight:800;text-transform:uppercase;letter-spacing:.14em;font-size:.78rem}
+.kicker::before{content:"";width:26px;height:2px;background:var(--laranja)}
+h2{font-size:clamp(2rem,4.4vw,3.2rem);line-height:1.05;margin:10px 0 14px;letter-spacing:-.01em}
+h2 em{font-style:normal;color:var(--laranja)}
+.sub{color:var(--suave);font-size:1.08rem;max-width:680px;margin:0 0 34px}
+section{padding:96px 0;position:relative}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:linear-gradient(135deg,var(--laranja2),var(--laranja));
+  color:#1a1206;font-weight:800;text-decoration:none;border-radius:999px;padding:14px 24px;border:none;cursor:pointer;
+  box-shadow:0 12px 30px rgba(255,140,0,.32);transition:transform .15s, box-shadow .15s;font-size:1rem;font-family:inherit}
+.btn:hover{transform:translateY(-2px);box-shadow:0 16px 36px rgba(255,140,0,.42)}
+.btn.sec{background:rgba(255,255,255,.06);color:var(--texto);border:1px solid rgba(255,255,255,.22);box-shadow:none}
+.btn.pq{padding:9px 16px;font-size:.92rem}
+.play{width:13px;height:14px;background:currentColor;clip-path:polygon(10% 0,100% 50%,10% 100%)}
+
+/* revelar ao fazer scroll */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .8s ease, transform .8s ease}
+.rv.on{opacity:1;transform:none}
+.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}
+
+/* ---------- topo ---------- */
+header{position:fixed;inset:0 0 auto 0;z-index:50;transition:background .3s, border-color .3s;border-bottom:1px solid transparent}
+header.solido{background:rgba(11,11,13,.86);backdrop-filter:blur(12px);border-bottom-color:rgba(255,140,0,.16)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:68px}
 header .logo img{height:36px}
-nav{display:flex;align-items:center;gap:22px}
-nav a{color:var(--suave);text-decoration:none;font-weight:600;font-size:.95rem}
-nav a:hover{color:var(--texto)}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;background:linear-gradient(135deg,var(--laranja2),var(--laranja));
-  color:#1a1206;font-weight:800;text-decoration:none;border-radius:999px;padding:12px 22px;border:none;box-shadow:0 10px 26px rgba(255,140,0,.28);transition:transform .15s}
-.btn:hover{transform:translateY(-2px)}
-.btn.sec{background:rgba(255,255,255,.05);color:var(--texto);border:1px solid rgba(255,255,255,.22);box-shadow:none}
-.btn.pq{padding:9px 16px;font-size:.92rem;color:#1a1206}
-.play{width:14px;height:14px;background:#1a1206;clip-path:polygon(18% 8%,92% 50%,18% 92%)}
-.hero{position:relative;overflow:hidden;background:linear-gradient(100deg,var(--castanho1) 0%,var(--castanho2) 55%,#2b1f19 100%);border-bottom:1px solid var(--borda)}
-.hero .wrap{position:relative;z-index:2;padding-top:84px;padding-bottom:84px}
-.hero-txt{max-width:600px}
-.tag{display:inline-block;font-size:.8rem;font-weight:800;color:var(--creme);border:1px solid rgba(255,140,0,.5);background:rgba(255,140,0,.12);padding:5px 13px;border-radius:999px;letter-spacing:.02em}
-h1{font-size:clamp(2.6rem,6vw,4.4rem);line-height:1.03;margin:18px 0 14px;font-weight:900;letter-spacing:-.01em}
-h1 span{color:var(--laranja)}
-.lead{font-size:1.15rem;color:rgba(255,255,255,.86);margin:0 0 26px}
+nav{display:flex;align-items:center;gap:24px}
+nav a{color:var(--suave);text-decoration:none;font-weight:600;font-size:.95rem;transition:color .15s}
+nav a:hover{color:#fff}
+
+/* ---------- hero ---------- */
+.hero{min-height:100vh;min-height:100svh;display:flex;align-items:center;padding:110px 0 120px;overflow:hidden;
+  background:radial-gradient(1200px 700px at 78% 30%, rgba(255,140,0,.16), transparent 60%),
+             linear-gradient(110deg,var(--castanho1) 0%,var(--castanho2) 50%,#1d1612 100%)}
+.hero::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.07;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E")}
+.hero .wrap{position:relative;z-index:3;width:100%;display:grid;grid-template-columns:1.05fr .95fr;gap:30px;align-items:center}
+.tag{display:inline-flex;align-items:center;gap:8px;font-size:.8rem;font-weight:800;color:var(--creme);border:1px solid rgba(255,140,0,.5);
+  background:rgba(255,140,0,.12);padding:6px 14px;border-radius:999px}
+.tag i{width:8px;height:8px;border-radius:50%;background:#33d17a;box-shadow:0 0 0 0 rgba(51,209,122,.7);animation:pulso 2s infinite}
+@keyframes pulso{70%{box-shadow:0 0 0 10px rgba(51,209,122,0)}100%{box-shadow:0 0 0 0 rgba(51,209,122,0)}}
+h1{font-size:clamp(3rem,7.4vw,6rem);line-height:.98;margin:20px 0 18px;font-weight:900;letter-spacing:-.025em}
+h1 .rodar{display:inline-block;color:var(--laranja);min-width:3ch;position:relative}
+h1 .rodar span{display:inline-block;animation:entra .55s cubic-bezier(.2,.8,.2,1)}
+@keyframes entra{from{opacity:0;transform:translateY(.4em) rotateX(60deg)}to{opacity:1;transform:none}}
+.lead{font-size:1.18rem;color:rgba(255,255,255,.86);margin:0 0 30px;max-width:560px}
+.lead b{color:var(--creme)}
 .acoes{display:flex;gap:12px;flex-wrap:wrap}
-.selos{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
-.selo{display:flex;align-items:center;gap:8px;background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:8px 12px;font-size:.88rem;color:var(--creme)}
+.selos{display:flex;gap:10px;flex-wrap:wrap;margin-top:30px}
+.selo{background:rgba(0,0,0,.28);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:8px 12px;font-size:.86rem;color:var(--creme)}
 .selo b{color:#fff}
-.vinil-caixa{position:absolute;width:760px;height:760px;right:-200px;top:-230px;z-index:1;transform:perspective(1100px) rotateX(38deg) rotateY(-18deg) rotateZ(-14deg)}
-.vinil,.vinil-luz{position:absolute;inset:0;border-radius:50%}
-.vinil{background:repeating-radial-gradient(circle at 50% 50%,#0d0d0d 0 1.8px,#1e1e1e 1.8px 3.6px);box-shadow:-30px 30px 60px rgba(0,0,0,.6),inset 0 0 0 4px #0a0a0a;animation:gira 9s linear infinite}
-.vinil-luz{background:conic-gradient(from 20deg,transparent 0deg,rgba(255,255,255,.17) 25deg,transparent 55deg,transparent 180deg,rgba(255,255,255,.1) 205deg,transparent 235deg);pointer-events:none}
-.rotulo{position:absolute;left:50%;top:50%;width:34%;height:34%;transform:translate(-50%,-50%);border-radius:50%;overflow:hidden;background:radial-gradient(circle at 40% 35%,#ffd9a0 0%,#f6a457 45%,#e8692c 100%)}
-.rotulo img{width:100%;height:100%;object-fit:cover;mix-blend-mode:multiply;opacity:.55}
-.rotulo::after{content:"";position:absolute;left:50%;top:50%;width:9%;height:9%;transform:translate(-50%,-50%);border-radius:50%;background:#f4f4f4}
+
+/* gira-discos */
+.gira{position:relative;aspect-ratio:1;width:min(560px,100%);justify-self:center}
+.disco{position:absolute;inset:6%;border-radius:50%;
+  background:repeating-radial-gradient(circle at 50% 50%,#0d0d0d 0 1.6px,#1f1f1f 1.6px 3.2px);
+  box-shadow:0 40px 80px rgba(0,0,0,.6), inset 0 0 0 5px #070707, 0 0 0 10px rgba(255,140,0,.06);
+  animation:gira 7s linear infinite}
+.disco::before{content:"";position:absolute;inset:0;border-radius:50%;
+  background:conic-gradient(from 20deg,transparent 0deg,rgba(255,255,255,.16) 22deg,transparent 52deg,transparent 180deg,rgba(255,255,255,.09) 205deg,transparent 235deg);
+  animation:gira 7s linear infinite reverse}
+.rotulo{position:absolute;left:50%;top:50%;width:36%;height:36%;transform:translate(-50%,-50%);border-radius:50%;overflow:hidden;
+  background:radial-gradient(circle at 40% 35%,#ffd9a0 0%,#f6a457 45%,#e8692c 100%)}
+.rotulo img{width:100%;height:100%;object-fit:cover;mix-blend-mode:multiply;opacity:.6}
+.rotulo::after{content:"";position:absolute;left:50%;top:50%;width:9%;height:9%;transform:translate(-50%,-50%);border-radius:50%;background:#efefef}
 @keyframes gira{to{transform:rotate(360deg)}}
-@media (prefers-reduced-motion:reduce){.vinil,.barra .enche{animation:none}}
-section{padding:84px 0}
-section.alt{background:var(--fundo2);border-top:1px solid rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.04)}
-.kicker{color:var(--laranja);font-weight:800;text-transform:uppercase;letter-spacing:.12em;font-size:.8rem}
-h2{font-size:clamp(1.9rem,4vw,2.7rem);line-height:1.1;margin:8px 0 12px}
-.sub{color:var(--suave);font-size:1.07rem;max-width:720px;margin:0 0 36px}
-.duas{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
-.shot{border-radius:16px;border:1px solid var(--borda);box-shadow:0 24px 60px rgba(0,0,0,.5)}
-.passos{display:grid;gap:14px;counter-reset:p}
-.passo{position:relative;display:grid;grid-template-columns:52px 1fr;gap:14px;align-items:start;background:var(--cartao);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:18px}
-.passo .n{counter-increment:p;width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;font-weight:900;color:#1a1206;background:linear-gradient(135deg,var(--laranja2),var(--laranja))}
+.braco{position:absolute;right:2%;top:4%;width:42%;height:62%;transform-origin:86% 10%;transform:rotate(-2deg);
+  transition:transform 1.2s cubic-bezier(.3,.9,.3,1);z-index:2;pointer-events:none}
+.gira.a-tocar .braco{transform:rotate(17deg)}
+.braco .base{position:absolute;right:4%;top:2%;width:22%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 35%,#5a5a62,#1c1c20);
+  box-shadow:0 8px 20px rgba(0,0,0,.6)}
+.braco .haste{position:absolute;right:14%;top:12%;width:6px;height:78%;border-radius:3px;background:linear-gradient(90deg,#9a9aa3,#d9d9de,#7a7a82);
+  transform:rotate(14deg);transform-origin:top center}
+.braco .agulha{position:absolute;right:30%;bottom:6%;width:15%;height:12%;border-radius:4px;background:linear-gradient(180deg,#ff9d2e,#c25400);
+  transform:rotate(14deg);box-shadow:0 6px 14px rgba(0,0,0,.5)}
+.capa{position:absolute;width:24%;aspect-ratio:1;border-radius:14px;object-fit:cover;box-shadow:0 20px 40px rgba(0,0,0,.55);
+  border:2px solid rgba(255,255,255,.08);z-index:3;animation:flutua 7s ease-in-out infinite}
+.capa.c1{left:-6%;top:8%;rotate:-10deg}
+.capa.c2{left:-2%;bottom:6%;rotate:8deg;animation-delay:-2.5s;width:21%}
+.capa.c3{right:-4%;bottom:14%;rotate:12deg;animation-delay:-4.5s;width:19%}
+@keyframes flutua{0%,100%{translate:0 0}50%{translate:0 -14px}}
+.ouvir-disco{position:absolute;left:50%;bottom:-2%;transform:translateX(-50%);z-index:4;font-size:.82rem;font-weight:800;color:var(--creme);
+  background:rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.14);padding:6px 12px;border-radius:999px;white-space:nowrap}
+
+/* onda sonora */
+.onda{position:absolute;left:0;right:0;bottom:0;height:90px;display:flex;align-items:flex-end;gap:3px;padding:0 10px;z-index:2;opacity:.55;
+  -webkit-mask:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+.onda i{flex:1;background:linear-gradient(180deg,var(--laranja2),rgba(255,140,0,.15));border-radius:3px 3px 0 0;height:20%;
+  animation:barra 1.3s ease-in-out infinite;transform-origin:bottom}
+@keyframes barra{0%,100%{transform:scaleY(.35)}50%{transform:scaleY(1)}}
+.desce{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);z-index:4;color:var(--creme);font-size:.8rem;text-decoration:none;
+  display:flex;flex-direction:column;align-items:center;gap:6px;opacity:.8}
+.desce span{width:22px;height:34px;border:2px solid rgba(255,217,168,.6);border-radius:12px;position:relative}
+.desce span::after{content:"";position:absolute;left:50%;top:6px;width:4px;height:8px;margin-left:-2px;border-radius:2px;background:var(--creme);animation:rato 1.6s infinite}
+@keyframes rato{0%{opacity:0;transform:translateY(0)}40%{opacity:1}100%{opacity:0;transform:translateY(10px)}}
+
+/* ---------- faixa de géneros ---------- */
+.faixa{background:var(--laranja);color:#1a1206;overflow:hidden;white-space:nowrap;padding:14px 0;transform:rotate(-1.2deg);margin:-14px -10px 0;position:relative;z-index:5;
+  box-shadow:0 14px 30px rgba(0,0,0,.4)}
+.faixa div{display:inline-flex;gap:38px;animation:passa 32s linear infinite;font-weight:900;font-size:1.25rem;letter-spacing:.06em}
+.faixa span::after{content:"✦";margin-left:38px;opacity:.6}
+@keyframes passa{to{transform:translateX(-50%)}}
+
+/* ---------- escolhe o teu lado ---------- */
+.lados{display:inline-flex;background:var(--cartao);border:1px solid rgba(255,255,255,.08);border-radius:999px;padding:6px;margin-bottom:34px;position:relative}
+.lados button{position:relative;z-index:1;background:none;border:none;color:var(--suave);font:inherit;font-weight:800;font-size:1rem;padding:12px 26px;border-radius:999px;cursor:pointer;transition:color .2s}
+.lados button.on{color:#1a1206}
+.lados .marca{position:absolute;top:6px;bottom:6px;left:6px;border-radius:999px;background:linear-gradient(135deg,var(--laranja2),var(--laranja));transition:all .35s cubic-bezier(.3,.9,.3,1)}
+.lado{display:none}
+.lado.on{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;animation:aparece .5s ease}
+@keyframes aparece{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.passos{display:grid;gap:12px;counter-reset:p}
+.passo{display:grid;grid-template-columns:50px 1fr;gap:14px;align-items:start;background:var(--cartao);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:16px 18px;
+  transition:border-color .2s, transform .2s}
+.passo:hover{border-color:rgba(255,140,0,.5);transform:translateX(4px)}
+.passo .n{counter-increment:p;width:50px;height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;font-weight:900;color:#1a1206;
+  background:linear-gradient(135deg,var(--laranja2),var(--laranja))}
 .passo .n::before{content:counter(p)}
-.passo h3{margin:2px 0 4px;font-size:1.12rem}
-.passo p{margin:0;color:var(--suave)}
-.passo.destaque{border-color:rgba(255,140,0,.55);background:linear-gradient(135deg,rgba(255,140,0,.12),rgba(255,140,0,.02))}
-.faixa30{display:flex;align-items:center;gap:22px;flex-wrap:wrap;justify-content:space-between;background:linear-gradient(110deg,#3a2414,#2a1a0f 60%,#1f150e);border:1px solid rgba(255,140,0,.55);border-radius:20px;padding:26px 28px;margin-top:34px}
-.faixa30 .grande{font-size:3.2rem;font-weight:900;line-height:1;color:var(--laranja)}
-.faixa30 .grande small{font-size:1.2rem;color:var(--creme);margin-left:6px}
-.faixa30 p{margin:6px 0 0;color:var(--creme);max-width:560px}
-.barra{flex:1 1 220px;max-width:300px}
-.barra .trilho{height:8px;border-radius:4px;background:rgba(255,255,255,.12);overflow:hidden}
-.barra .enche{height:100%;width:0;background:linear-gradient(90deg,var(--laranja2),var(--laranja));animation:enche 6s ease-in-out infinite}
-.barra .t{display:flex;justify-content:space-between;font-size:.78rem;color:var(--suave);margin-top:6px;font-variant-numeric:tabular-nums}
-@keyframes enche{0%{width:0}75%,100%{width:100%}}
+.passo h3{margin:2px 0 3px;font-size:1.08rem}
+.passo p{margin:0;color:var(--suave);font-size:.95rem}
+
+/* telemóvel desenhado (sem capturas com músicas reais) */
+.tel{width:300px;max-width:100%;justify-self:center;border-radius:42px;padding:12px;background:linear-gradient(160deg,#2a2a30,#0d0d10);
+  box-shadow:0 40px 80px rgba(0,0,0,.6), inset 0 0 0 2px rgba(255,255,255,.08);position:relative}
+.tel::before{content:"";position:absolute;left:50%;top:18px;width:90px;height:22px;margin-left:-45px;border-radius:12px;background:#050506;z-index:2}
+.ecra{border-radius:32px;overflow:hidden;background:#0e0e10;padding:46px 14px 16px;min-height:540px}
+.ecra .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.ecra .top img{height:22px}
+.ecra .mini-hero{border-radius:14px;padding:14px;background:linear-gradient(110deg,var(--castanho1),var(--castanho2));border:1px solid var(--borda);margin-bottom:12px;position:relative;overflow:hidden}
+.ecra .mini-hero b{font-size:1.15rem;letter-spacing:.06em}
+.ecra .mini-hero small{display:block;color:var(--creme);font-size:.72rem}
+.ecra .mini-hero .disc{position:absolute;right:-30px;top:-30px;width:110px;height:110px;border-radius:50%;background:repeating-radial-gradient(circle,#0d0d0d 0 1.4px,#202020 1.4px 2.8px);animation:gira 6s linear infinite}
+.ecra .mini-hero .disc::after{content:"";position:absolute;inset:34%;border-radius:50%;background:radial-gradient(circle at 40% 35%,#ffd9a0,#e8692c)}
+.ecra h4{margin:10px 0 8px;font-size:.92rem;color:var(--laranja2)}
+.linha-top{display:flex;align-items:center;gap:10px;padding:7px 4px;border-radius:10px}
+.linha-top:nth-child(odd){background:rgba(255,255,255,.03)}
+.linha-top .num{width:20px;font-weight:900;color:var(--laranja);font-size:1.1rem;text-align:center}
+.linha-top img{width:38px;height:38px;border-radius:7px;object-fit:cover}
+.linha-top div{flex:1;min-width:0}
+.linha-top div b{display:block;font-size:.8rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.linha-top div span{font-size:.7rem;color:var(--creme)}
+.linha-top .pl{width:26px;height:26px;border-radius:8px;background:rgba(255,140,0,.15);display:flex;align-items:center;justify-content:center;color:var(--laranja)}
+.mini-player{margin-top:12px;border-radius:12px;background:#17171b;border:1px solid rgba(255,140,0,.35);padding:10px;display:flex;gap:10px;align-items:center}
+.mini-player img{width:36px;height:36px;border-radius:6px}
+.mini-player .pb{flex:1}
+.mini-player .pb b{font-size:.75rem;display:block}
+.mini-player .tr{height:4px;border-radius:2px;background:rgba(255,255,255,.12);margin-top:6px;overflow:hidden}
+.mini-player .tr i{display:block;height:100%;width:40%;background:var(--laranja);animation:prog 8s linear infinite}
+@keyframes prog{from{width:0}to{width:100%}}
+
+/* ---------- 30 segundos ---------- */
+.trinta{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.leitor30{background:linear-gradient(140deg,#1e1712,#15120f);border:1px solid rgba(255,140,0,.45);border-radius:24px;padding:26px;position:relative;overflow:hidden;
+  box-shadow:0 30px 60px rgba(0,0,0,.45)}
+.leitor30 .faixa-info{display:flex;gap:14px;align-items:center}
+.leitor30 .faixa-info img{width:72px;height:72px;border-radius:12px;object-fit:cover}
+.leitor30 .faixa-info b{display:block;font-size:1.1rem}
+.leitor30 .faixa-info span{color:var(--creme);font-size:.88rem}
+.pill30{display:inline-block;margin-top:4px;padding:1px 8px;border-radius:999px;background:rgba(255,140,0,.18);border:1px solid rgba(255,140,0,.5);color:var(--laranja2);font-size:.7rem;font-weight:800}
+.ondas30{display:flex;align-items:center;gap:3px;height:70px;margin:22px 0 10px}
+.ondas30 i{flex:1;border-radius:2px;background:rgba(255,255,255,.16);transition:background .2s}
+.ondas30 i.f{background:linear-gradient(180deg,var(--laranja2),var(--laranja))}
+.tempo30{display:flex;justify-content:space-between;font-size:.82rem;color:var(--suave);font-variant-numeric:tabular-nums}
+.controlos30{display:flex;justify-content:center;margin-top:14px}
+.bplay{width:58px;height:58px;border-radius:50%;border:none;cursor:pointer;background:linear-gradient(135deg,var(--laranja2),var(--laranja));color:#1a1206;
+  display:flex;align-items:center;justify-content:center;box-shadow:0 10px 24px rgba(255,140,0,.4)}
+.bplay .play{width:18px;height:20px}
+.bplay .pausa{width:16px;height:18px;border-left:5px solid #1a1206;border-right:5px solid #1a1206}
+.fim30{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;gap:12px;
+  background:rgba(14,10,8,.88);backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .4s}
+.fim30.on{opacity:1;pointer-events:auto}
+.fim30 b{font-size:1.4rem}
+.fim30 p{margin:0;color:var(--creme);max-width:320px}
+
+/* ---------- Studio ---------- */
+.studio{background:var(--fundo2)}
+.estudio{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+.mesa{background:linear-gradient(180deg,#1b1b20,#141418);border:1px solid rgba(255,255,255,.08);border-radius:24px;padding:22px;box-shadow:0 30px 60px rgba(0,0,0,.45)}
+.mesa .cab{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.mesa .cab b{font-size:.95rem}
+.mesa .cab span{font-size:.75rem;color:var(--creme);border:1px solid var(--borda);border-radius:999px;padding:2px 10px}
+.wave{display:flex;align-items:center;gap:2px;height:84px;padding:6px;border-radius:12px;background:rgba(255,255,255,.03);margin-bottom:18px}
+.wave i{flex:1;border-radius:2px;background:linear-gradient(180deg,var(--laranja2),var(--laranja));transition:height .6s cubic-bezier(.3,.9,.3,1)}
+.faders{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;text-align:center}
+.fader{display:flex;flex-direction:column;align-items:center;gap:8px}
+.fader small{font-size:.66rem;font-weight:700;color:var(--suave);text-transform:uppercase;letter-spacing:.05em}
+.fader output{font-size:.72rem;font-weight:800;color:var(--laranja2);font-variant-numeric:tabular-nums}
+.fader input{writing-mode:vertical-lr;direction:rtl;-webkit-appearance:slider-vertical;appearance:slider-vertical;width:28px;height:130px;accent-color:var(--laranja);cursor:ns-resize}
+.medidores{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:16px 0}
+.med{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:10px}
+.med small{font-size:.64rem;color:var(--suave);text-transform:uppercase;letter-spacing:.06em;font-weight:700}
+.med b{display:block;font-size:1.15rem;font-variant-numeric:tabular-nums;transition:color .4s}
+.med .barra-m{height:5px;border-radius:3px;background:rgba(255,255,255,.1);margin-top:6px;position:relative}
+.med .barra-m::before{content:"";position:absolute;left:55%;width:25%;top:0;bottom:0;background:rgba(51,209,122,.5);border-radius:3px}
+.med .barra-m i{position:absolute;top:-3px;width:3px;height:11px;border-radius:2px;background:var(--laranja);transition:left .6s cubic-bezier(.3,.9,.3,1)}
+.bmaster{width:100%}
+.lista-studio{list-style:none;padding:0;margin:0 0 26px;display:grid;gap:12px}
+.lista-studio li{display:flex;gap:12px;align-items:flex-start}
+.lista-studio li b{color:#fff}
+.lista-studio li::before{content:"";flex:0 0 22px;height:22px;border-radius:7px;margin-top:2px;background:linear-gradient(135deg,var(--laranja2),var(--laranja));
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z'/%3E%3C/svg%3E") center/16px no-repeat, linear-gradient(#000,#000);
+  -webkit-mask-composite:destination-out;mask-composite:exclude}
+
+/* ---------- ganhar ---------- */
+.ganhar{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.g{background:var(--cartao);border:1px solid rgba(255,255,255,.07);border-radius:var(--raio);padding:24px;position:relative;overflow:hidden;transition:transform .25s, border-color .25s}
+.g:hover{transform:translateY(-6px);border-color:rgba(255,140,0,.5)}
+.g h3{margin:14px 0 6px;font-size:1.25rem}
+.g p{margin:0;color:var(--suave)}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chips span{padding:8px 14px;border-radius:999px;background:rgba(255,140,0,.14);border:1px solid rgba(255,140,0,.45);font-weight:900;color:var(--laranja2)}
+.prateleira{display:flex;gap:8px}
+.prateleira div{flex:1;aspect-ratio:1;border-radius:12px;background:#222228;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:800;color:var(--creme);
+  border:1px solid rgba(255,255,255,.07);text-transform:uppercase;letter-spacing:.05em}
+.prateleira div:first-child{background:linear-gradient(140deg,#3a2414,#1f150e);border-color:rgba(255,140,0,.4)}
+/* bilhete que vira */
+.bilhete-caixa{perspective:1000px;height:190px}
+.bilhete{position:relative;width:100%;height:100%;transition:transform .8s cubic-bezier(.3,.9,.3,1);transform-style:preserve-3d}
+.g:hover .bilhete, .bilhete.virado{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;border-radius:16px;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;overflow:hidden}
+.frente{background:linear-gradient(120deg,#ff9d2e,#c25400);color:#1a1206}
+.frente .ev{flex:1;padding:16px}
+.frente .ev small{font-weight:800;text-transform:uppercase;letter-spacing:.1em;font-size:.68rem}
+.frente .ev b{display:block;font-size:1.3rem;line-height:1.1;margin:6px 0}
+.frente .ev span{font-size:.8rem;font-weight:700}
+.frente .corte{width:70px;border-left:2px dashed rgba(26,18,6,.4);display:flex;align-items:center;justify-content:center;writing-mode:vertical-rl;font-weight:900;letter-spacing:.2em;font-size:.72rem}
+.verso{background:#fff;transform:rotateY(180deg);align-items:center;justify-content:center;gap:14px;color:#1a1206;padding:14px}
+.verso img{width:130px;height:130px}
+.verso b{font-size:1rem}
+.verso small{display:block;color:#555;font-size:.72rem;max-width:120px}
+
+/* ---------- planos ---------- */
 .planos{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:stretch}
-.plano{position:relative;background:var(--cartao);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:26px 24px;display:flex;flex-direction:column}
-.plano.top{border:2px solid var(--laranja);background:linear-gradient(180deg,rgba(255,140,0,.13),rgba(255,140,0,.02) 45%),var(--cartao);box-shadow:0 20px 50px rgba(255,140,0,.12)}
-.plano .fita{position:absolute;top:-13px;right:20px;background:var(--laranja);color:#1a1206;font-weight:900;font-size:.74rem;padding:4px 12px;border-radius:999px;letter-spacing:.06em;text-transform:uppercase}
-.plano .para{color:var(--laranja2);font-weight:800;font-size:.85rem;text-transform:uppercase;letter-spacing:.08em}
-.plano h3{margin:6px 0 2px;font-size:1.5rem}
-.preco{font-size:2.6rem;font-weight:900;line-height:1.1;margin:10px 0 4px}
+.plano{position:relative;background:var(--cartao);border:1px solid rgba(255,255,255,.08);border-radius:22px;padding:28px 24px;display:flex;flex-direction:column}
+.plano.top{border:2px solid var(--laranja);background:linear-gradient(180deg,rgba(255,140,0,.14),rgba(255,140,0,.02) 45%),var(--cartao);box-shadow:0 24px 60px rgba(255,140,0,.14)}
+.plano .fita{position:absolute;top:-13px;right:20px;background:var(--laranja);color:#1a1206;font-weight:900;font-size:.72rem;padding:4px 12px;border-radius:999px;letter-spacing:.06em;text-transform:uppercase}
+.plano .para{color:var(--laranja2);font-weight:800;font-size:.8rem;text-transform:uppercase;letter-spacing:.1em}
+.plano h3{margin:6px 0 0;font-size:1.5rem}
+.preco{font-size:3rem;font-weight:900;line-height:1.1;margin:10px 0 2px}
 .preco small{font-size:1rem;color:var(--suave);font-weight:600}
 .plano .nota{color:var(--suave);font-size:.9rem;margin:0 0 16px}
 .plano ul{list-style:none;padding:0;margin:0 0 22px;display:grid;gap:9px}
 .plano li{position:relative;padding-left:28px;color:#e7e7ea}
 .plano li::before{content:"";position:absolute;left:0;top:4px;width:18px;height:18px;border-radius:50%;background:rgba(255,140,0,.18);box-shadow:inset 0 0 0 1.5px var(--laranja)}
-.plano li::after{content:"";position:absolute;left:6px;top:7px;width:5px;height:9px;border:solid var(--laranja);border-width:0 2px 2px 0;transform:rotate(40deg)}
+.plano li::after{content:"";position:absolute;left:6.5px;top:7px;width:5px;height:9px;border:solid var(--laranja);border-width:0 2px 2px 0;transform:rotate(40deg)}
 .plano li.nao{color:var(--suave)}
 .plano li.nao::before{background:transparent;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.25)}
 .plano li.nao::after{border:none;left:5px;top:12px;width:8px;height:2px;background:rgba(255,255,255,.35);transform:none}
 .plano .btn{margin-top:auto}
 .extras{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px}
 .extra{background:rgba(255,255,255,.03);border:1px dashed rgba(255,140,0,.4);border-radius:14px;padding:16px 18px}
-.extra b{display:block;font-size:1.05rem}
+.extra .v{display:block;color:var(--laranja);font-weight:900;font-size:1.3rem}
+.extra b{display:block}
 .extra span{color:var(--suave);font-size:.92rem}
-.extra .v{display:block;color:var(--laranja);font-weight:900;font-size:1.25rem}
-.capas{position:relative;height:380px}
-.capas img{position:absolute;width:230px;height:230px;object-fit:cover;border-radius:14px;border:2px solid rgba(255,255,255,.08);box-shadow:-14px 16px 34px rgba(0,0,0,.55)}
-.capas img:nth-child(1){left:0;top:70px;transform:rotate(-10deg)}
-.capas img:nth-child(2){left:150px;top:0;transform:rotate(3deg);z-index:2}
-.capas img:nth-child(3){left:300px;top:90px;transform:rotate(12deg)}
-.cartoes{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.cartao{background:var(--cartao);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:20px}
-.cartao h3{margin:0 0 6px;font-size:1.08rem}
-.cartao p{margin:0;color:var(--suave);font-size:.95rem}
-.cartao .ico{width:40px;height:40px;border-radius:12px;background:rgba(255,140,0,.14);display:flex;align-items:center;justify-content:center;margin-bottom:12px;color:var(--laranja);font-weight:900}
-details{background:var(--cartao);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:4px 18px;margin-bottom:10px}
-summary{cursor:pointer;font-weight:700;padding:14px 0;list-style:none;display:flex;justify-content:space-between;gap:12px}
+
+/* ---------- zuela ---------- */
+.zuela{text-align:center;padding:110px 0;background:radial-gradient(600px 300px at 50% 50%,rgba(255,140,0,.12),transparent 70%)}
+.zuela .grande{font-size:clamp(3.4rem,11vw,9rem);font-weight:900;line-height:.9;letter-spacing:-.03em;
+  background:linear-gradient(90deg,#fff,var(--laranja2),var(--laranja),#fff);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:brilho 8s ease-in-out infinite}
+@keyframes brilho{0%,100%{background-position:0 0}50%{background-position:100% 0}}
+.zuela p{font-size:1.2rem;color:var(--creme);margin:14px auto 0;max-width:640px}
+.zuela p i{color:#fff;font-style:normal;font-weight:800}
+
+/* ---------- perguntas ---------- */
+details{background:var(--cartao);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:4px 20px;margin-bottom:10px;transition:border-color .2s}
+details[open]{border-color:rgba(255,140,0,.45)}
+summary{cursor:pointer;font-weight:700;padding:16px 0;list-style:none;display:flex;justify-content:space-between;gap:12px}
 summary::-webkit-details-marker{display:none}
-summary::after{content:"+";color:var(--laranja);font-size:1.4rem;line-height:1}
-details[open] summary::after{content:"–"}
-details p{margin:0 0 16px;color:var(--suave)}
-.cta{text-align:center;background:linear-gradient(100deg,var(--castanho1),var(--castanho2));border-top:1px solid var(--borda)}
-.cta h2{margin-top:0}
-.cta p{color:var(--creme);margin:0 0 26px}
-footer{padding:26px 0;color:var(--suave);font-size:.88rem}
+summary::after{content:"+";color:var(--laranja);font-size:1.5rem;line-height:1;transition:transform .2s}
+details[open] summary::after{transform:rotate(45deg)}
+details p{margin:0 0 18px;color:var(--suave)}
+
+/* ---------- chamada final ---------- */
+.final{text-align:center;overflow:hidden;background:linear-gradient(110deg,var(--castanho1),var(--castanho2))}
+.final .disco-final{width:280px;height:280px;margin:0 auto 26px;border-radius:50%;position:relative;
+  background:repeating-radial-gradient(circle,#0d0d0d 0 1.6px,#1f1f1f 1.6px 3.2px);box-shadow:0 30px 60px rgba(0,0,0,.6);animation:gira 9s linear infinite}
+.final .disco-final::after{content:"";position:absolute;inset:33%;border-radius:50%;background:url(img/sonhos_na_rua_9.jpg) center/cover;
+  box-shadow:0 0 0 999px rgba(0,0,0,0) inset;filter:sepia(.5) saturate(1.6) hue-rotate(-10deg)}
+.final h2{font-size:clamp(2.4rem,5vw,3.6rem)}
+.final p{color:var(--creme);margin:0 0 28px;font-size:1.1rem}
+footer{padding:28px 0;color:var(--suave);font-size:.88rem;border-top:1px solid rgba(255,255,255,.06)}
 footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
 footer img{height:28px}
+
 @media (max-width:980px){
-  .duas,.planos,.extras,.cartoes{grid-template-columns:1fr}
+  .hero .wrap,.lado.on,.trinta,.estudio,.ganhar,.planos,.extras{grid-template-columns:1fr}
+  .gira{width:min(440px,92%)}
   .plano.top{order:-1}
-  .vinil-caixa{width:520px;height:520px;right:-220px;top:-150px;opacity:.55}
-  .capas{height:300px;max-width:420px;margin:0 auto}
-  .capas img{width:180px;height:180px}
-  .capas img:nth-child(2){left:120px}.capas img:nth-child(3){left:240px}
+  .tel{order:-1}
 }
 @media (max-width:640px){
   nav a:not(.btn){display:none}
-  .hero .wrap{padding-top:54px;padding-bottom:60px}
-  .vinil-caixa{width:380px;height:380px;right:-190px;top:-110px;opacity:.45}
-  section{padding:60px 0}
-  .faixa30{padding:20px}
-  .faixa30 .grande{font-size:2.6rem}
-  .capas{height:250px;max-width:320px}
-  .capas img{width:150px;height:150px}
-  .capas img:nth-child(2){left:85px}.capas img:nth-child(3){left:170px}
+  section{padding:70px 0}
+  .hero{padding:96px 0 120px}
+  .lados button{padding:10px 16px;font-size:.92rem}
+  .faders input{height:110px}
+  .faixa div{font-size:1.05rem}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .rv{opacity:1;transform:none}
 }
 </style>
 </head>
 <body>
 
-<header>
+<header id="topo">
   <div class="wrap">
     <a class="logo" href="#"><img src="img/zuelasom_logo.png" alt="ZuelaSom"></a>
     <nav>
-      <a href="#ouvintes">Ouvintes</a>
-      <a href="#artistas">Artistas</a>
+      <a href="#lados">Como funciona</a>
+      <a href="#studio">Studio</a>
       <a href="#planos">Planos</a>
       <a href="#perguntas">Perguntas</a>
       <a class="btn pq" href="https://zuelasom.streamlit.app/">Abrir a app</a>
@@ -170,204 +353,238 @@ footer img{height:28px}
   </div>
 </header>
 
-<section class="hero" style="padding:0">
-  <div class="vinil-caixa" aria-hidden="true">
-    <div class="vinil"><div class="rotulo"><img src="img/sonhos_na_rua_9.jpg" alt=""></div></div>
-    <div class="vinil-luz"></div>
-  </div>
+<!-- TOPO -->
+<section class="hero">
+  <div class="onda" id="onda" aria-hidden="true"></div>
   <div class="wrap">
-    <div class="hero-txt">
-      <span class="tag">Música urbana independente · hip hop · rap · trap · R&amp;B · afrobeat</span>
-      <h1>O som que <span>fala</span>.</h1>
-      <p class="lead"><b>Zuela</b> quer dizer "falar" em kimbundu. Na ZuelaSom os artistas independentes publicam,
-        masterizam e vendem a sua música — e quem ouve descobre vozes novas e apoia-as diretamente.</p>
+    <div>
+      <span class="tag"><i></i> Música urbana independente</span>
+      <h1>O som<br>que <span class="rodar" id="rodar"><span>fala.</span></span></h1>
+      <p class="lead"><b>Zuela</b> quer dizer «falar» em kimbundu. Aqui os artistas independentes publicam, masterizam e vendem
+        a sua música — e tu descobres vozes novas e apoias quem gostas, diretamente.</p>
       <div class="acoes">
         <a class="btn" href="https://zuelasom.streamlit.app/"><span class="play"></span>Ouvir agora · 30 s grátis</a>
-        <a class="btn sec" href="#artistas">Sou artista</a>
+        <a class="btn sec" href="#lados" data-lado="artista">Sou artista</a>
       </div>
       <div class="selos">
-        <span class="selo"><b>30 s</b> de cada música, sem conta</span>
+        <span class="selo"><b>30 s</b> de cada música sem conta</span>
         <span class="selo">Conta <b>grátis</b> para ouvir tudo</span>
-        <span class="selo"><b>4 línguas</b> · PT · EN · FR · ES</span>
+        <span class="selo"><b>PT · EN · FR · ES</b></span>
       </div>
     </div>
+    <div class="gira" id="gira" aria-hidden="true">
+      <div class="disco"><div class="rotulo"><img src="img/sonhos_na_rua_9.jpg" alt=""></div></div>
+      <div class="braco"><div class="base"></div><div class="haste"></div><div class="agulha"></div></div>
+      <img class="capa c1" src="img/negritude.jpg" alt="">
+      <img class="capa c2" src="img/kagiza.jpg" alt="">
+      <img class="capa c3" src="img/rapper.jpg" alt="">
+      <span class="ouvir-disco">passa o rato no disco</span>
+    </div>
   </div>
+  <a class="desce" href="#lados"><span></span>descobre</a>
 </section>
 
-<section id="ouvintes">
-  <div class="wrap duas">
-    <div>
-      <span class="kicker">Para quem ouve</span>
-      <h2>Carrega no play. Sem pagar nada.</h2>
-      <p class="sub">Explora o catálogo todo à vontade. Sem conta ouves uma prévia; com uma conta grátis ouves tudo.</p>
+<div class="faixa" aria-hidden="true"><div id="faixa">
+  <span>HIP HOP</span><span>RAP</span><span>TRAP</span><span>DRILL</span><span>R&amp;B</span><span>AFROBEAT</span><span>KIZOMBA</span><span>KUDURO</span><span>AFRO HOUSE</span><span>SEMBA</span>
+</div></div>
+
+<!-- ESCOLHE O TEU LADO -->
+<section id="lados">
+  <div class="wrap">
+    <span class="kicker rv">Como funciona</span>
+    <h2 class="rv d1">Escolhe o <em>teu lado</em>.</h2>
+    <p class="sub rv d2">A mesma casa, dois caminhos: vens ouvir, ou vens mostrar o teu som ao mundo.</p>
+    <div class="lados rv d2" role="tablist">
+      <span class="marca" id="marca"></span>
+      <button class="on" data-lado="ouvinte" role="tab" aria-selected="true">Venho ouvir</button>
+      <button data-lado="artista" role="tab" aria-selected="false">Sou artista</button>
+    </div>
+
+    <div class="lado on" id="lado-ouvinte">
       <div class="passos">
-        <div class="passo"><span class="n"></span><div><h3>Ouve 30 segundos de cada música</h3>
-          <p>Sem conta e sem pagar: vês o catálogo, os artistas, o Top 10, a Loja e ouves os primeiros 30 s de cada faixa.</p></div></div>
-        <div class="passo destaque"><span class="n"></span><div><h3>Cria uma conta grátis</h3>
-          <p>No menu da app: <b>Entrar / Criar conta</b>. Só precisas de um email. A partir daí ouves <b>todas as músicas até ao fim</b>.</p></div></div>
-        <div class="passo"><span class="n"></span><div><h3>Faz a tua coleção</h3>
-          <p>Dá gostos, guarda músicas na biblioteca, cria playlists, segue artistas e vê o teu histórico.</p></div></div>
-        <div class="passo"><span class="n"></span><div><h3>Apoia quem gostas</h3>
-          <p>Um apoio de 2, 5, 10 ou 20 € vai direto para o artista. Compra beats, merch e bilhetes na Loja.</p></div></div>
+        <div class="passo"><span class="n"></span><div><h3>Carrega no play, já</h3><p>Sem conta e sem pagar: ouves 30 segundos de cada música, vês os artistas, o Top 10 e a Loja.</p></div></div>
+        <div class="passo"><span class="n"></span><div><h3>Cria uma conta grátis</h3><p>Só com o email. A partir daí ouves <b>tudo até ao fim</b>, em qualquer dispositivo.</p></div></div>
+        <div class="passo"><span class="n"></span><div><h3>Faz a tua coleção</h3><p>Gostos, biblioteca, playlists, histórico e os artistas que segues, sempre contigo.</p></div></div>
+        <div class="passo"><span class="n"></span><div><h3>Apoia quem gostas</h3><p>Um apoio vai direto para o artista. Compra beats, merch e bilhetes com QR code.</p></div></div>
+      </div>
+      <div class="tel" aria-hidden="true">
+        <div class="ecra">
+          <div class="top"><img src="img/zuelasom_logo.png" alt=""><span class="pill30">Prévia 30 s</span></div>
+          <div class="mini-hero"><b>ZUELASOM</b><small>Descobre talento urbano independente</small><span class="disc"></span></div>
+          <h4>Top 10</h4>
+          <div class="linha-top"><span class="num">1</span><img src="img/sonhos_na_rua_9.jpg" alt=""><div><b>Sonhos na Rua 9</b><span>Putos Qui A Tá Cria</span></div><span class="pl"><span class="play"></span></span></div>
+          <div class="linha-top"><span class="num">2</span><img src="img/negritude.jpg" alt=""><div><b>Negritude</b><span>Lord Strike</span></div><span class="pl"><span class="play"></span></span></div>
+          <div class="linha-top"><span class="num">3</span><img src="img/kagiza.jpg" alt=""><div><b>Paracetamol Blues</b><span>Kagiza</span></div><span class="pl"><span class="play"></span></span></div>
+          <div class="linha-top"><span class="num">4</span><img src="img/susial_drama.jpg" alt=""><div><b>Susial Drama</b><span>Kova M</span></div><span class="pl"><span class="play"></span></span></div>
+          <div class="linha-top"><span class="num">5</span><img src="img/rapper.jpg" alt=""><div><b>B de Beta</b><span>MC Silva</span></div><span class="pl"><span class="play"></span></span></div>
+          <div class="mini-player"><img src="img/negritude.jpg" alt=""><div class="pb"><b>Negritude · Lord Strike</b><div class="tr"><i></i></div></div></div>
+        </div>
       </div>
     </div>
-    <img class="shot" src="img/app_inicio.jpg" alt="Página Início da ZuelaSom: Top 10, artista da semana e novidades" loading="lazy">
-  </div>
-  <div class="wrap">
-    <div class="faixa30">
-      <div>
-        <div class="grande">30<small>segundos grátis</small></div>
-        <p>Sem conta, cada música toca 30 segundos e pára com um aviso. Gostaste? Cria a tua conta grátis e ouve-a até ao fim —
-          e as tuas audições passam a contar para o artista.</p>
+
+    <div class="lado" id="lado-artista">
+      <div class="passos">
+        <div class="passo"><span class="n"></span><div><h3>Cria a conta como «Artista»</h3><p>Com a tua foto. Ficas logo com a tua página pública: capa, bio, redes sociais.</p></div></div>
+        <div class="passo"><span class="n"></span><div><h3>Prepara no Studio</h3><p>Analisa e masteriza no navegador, para soar bem no Spotify, YouTube e Apple Music.</p></div></div>
+        <div class="passo"><span class="n"></span><div><h3>Publica</h3><p>Carregas em WAV ou MP3; a equipa aprova e a música fica online para toda a gente.</p></div></div>
+        <div class="passo"><span class="n"></span><div><h3>Ganha</h3><p>Apoios dos fãs, beats em WAV, merch e bilhetes — o dinheiro vai direto para a tua conta.</p></div></div>
       </div>
-      <div class="barra" aria-hidden="true">
-        <div class="trilho"><div class="enche"></div></div>
-        <div class="t"><span>0:00</span><span>0:30</span></div>
-      </div>
-      <a class="btn" href="https://zuelasom.streamlit.app/">Experimentar agora</a>
+      <img class="shot rv" src="img/app_studio_mesa.jpg" alt="Canal da mesa de mistura do Studio ZuelaSom" loading="lazy"
+           style="border-radius:20px;border:1px solid var(--borda);box-shadow:0 30px 60px rgba(0,0,0,.5)">
     </div>
   </div>
 </section>
 
-<section class="alt" id="artistas">
-  <div class="wrap duas">
-    <div class="capas" aria-hidden="true">
-      <img src="img/negritude.jpg" alt="">
-      <img src="img/kagiza.jpg" alt="">
-      <img src="img/rapper.jpg" alt="">
+<!-- 30 SEGUNDOS -->
+<section style="background:var(--fundo2)">
+  <div class="wrap trinta">
+    <div>
+      <span class="kicker rv">Sem conta</span>
+      <h2 class="rv d1"><em>30 segundos</em> por nossa conta.</h2>
+      <p class="sub rv d2">Experimenta qualquer música antes de criares conta. Gostaste? A conta é grátis e ouves até ao fim — e as tuas
+        audições passam a contar para o artista.</p>
+      <a class="btn rv d3" href="https://zuelasom.streamlit.app/">Experimentar na app</a>
+    </div>
+    <div class="leitor30 rv d1">
+      <div class="faixa-info"><img src="img/kagiza.jpg" alt=""><div><b>Paracetamol Blues</b><span>Kagiza</span><br><span class="pill30">Prévia 30 s</span></div></div>
+      <div class="ondas30" id="ondas30" aria-hidden="true"></div>
+      <div class="tempo30"><span id="t30">0:00</span><span>3:42</span></div>
+      <div class="controlos30"><button class="bplay" id="bplay" aria-label="Tocar a demonstração"><span class="play"></span></button></div>
+      <div class="fim30" id="fim30">
+        <b>Gostaste?</b>
+        <p>Ouviste a prévia de 30 segundos. Cria uma conta grátis e ouve até ao fim.</p>
+        <a class="btn" href="https://zuelasom.streamlit.app/">Criar conta grátis</a>
+        <button class="btn sec pq" id="denovo">Ouvir a prévia outra vez</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STUDIO -->
+<section class="studio" id="studio" style="background:var(--fundo)">
+  <div class="wrap estudio">
+    <div class="mesa rv">
+      <div class="cab"><b>minha_mistura.wav</b><span id="estado">Antes</span></div>
+      <div class="wave" id="wave" aria-hidden="true"></div>
+      <div class="faders">
+        <label class="fader"><output>+2.0</output><input type="range" min="-12" max="12" step="0.5" value="2" data-f="graves"><small>Graves</small></label>
+        <label class="fader"><output>-1.5</output><input type="range" min="-12" max="12" step="0.5" value="-1.5" data-f="medios"><small>Médios</small></label>
+        <label class="fader"><output>+3.0</output><input type="range" min="-12" max="12" step="0.5" value="3" data-f="agudos"><small>Agudos</small></label>
+        <label class="fader"><output>+0.0</output><input type="range" min="-12" max="12" step="0.5" value="0" data-f="pan"><small>Pan</small></label>
+        <label class="fader"><output>-6.0</output><input type="range" min="-24" max="6" step="0.5" value="-6" data-f="volume"><small>Volume</small></label>
+      </div>
+      <div class="medidores">
+        <div class="med"><small>Volume</small><b id="m-lufs">-21.4 LUFS</b><div class="barra-m"><i id="b-lufs" style="left:20%"></i></div></div>
+        <div class="med"><small>Pico</small><b id="m-pico">-4.8 dBTP</b><div class="barra-m"><i id="b-pico" style="left:40%"></i></div></div>
+        <div class="med"><small>Dinâmica</small><b id="m-din">15.2 dB</b><div class="barra-m"><i id="b-din" style="left:85%"></i></div></div>
+      </div>
+      <button class="btn bmaster" id="bmaster">Masterizar para plataformas de música</button>
     </div>
     <div>
-      <span class="kicker">Para artistas</span>
-      <h2>Do quarto para o mundo — e com dinheiro no fim.</h2>
-      <p class="sub">Publicas a tua música, preparas a master no Studio e ganhas com apoios, beats, merch e bilhetes.</p>
-      <div class="passos">
-        <div class="passo"><span class="n"></span><div><h3>Cria a tua conta</h3>
-          <p>Grátis, na app: <b>Entrar / Criar conta</b>.</p></div></div>
-        <div class="passo"><span class="n"></span><div><h3>Escolhe «Artista»</h3>
-          <p>Ao criar a conta escolhes <b>Artista</b> e ficas logo com a tua página pública, com foto, capa, bio e redes sociais.</p></div></div>
-        <div class="passo"><span class="n"></span><div><h3>Prepara e publica</h3>
-          <p>No <b>Studio ZuelaSom</b> analisas e masterizas a faixa para Spotify, YouTube e Apple Music. Publicas; a equipa aprova e fica online.</p></div></div>
-        <div class="passo destaque"><span class="n"></span><div><h3>Ganha com a tua música</h3>
-          <p>Liga a tua conta Stripe e recebes os apoios dos fãs e as vendas da tua Loja <b>diretamente na tua conta</b>.</p></div></div>
+      <span class="kicker rv">Studio ZuelaSom</span>
+      <h2 class="rv d1">O teu estúdio,<br><em>no navegador</em>.</h2>
+      <p class="sub rv d2">Experimenta aqui ao lado: mexe nos faders e carrega em «Masterizar». Na app é a sério, com a tua música.</p>
+      <ul class="lista-studio rv d2">
+        <li><span><b>Análise</b> com medidores de volume, pico, dinâmica e estéreo — e a zona ideal a verde.</span></li>
+        <li><span><b>Masterização</b> com estilos e alvos para Spotify, YouTube, Apple Music ou rap e club.</span></li>
+        <li><span><b>Mesa de mistura</b> até 8 pistas, com faders, EQ, pan, mute e solo.</span></li>
+        <li><span><b>Conselheira IA</b> que lê as medições e sugere ajustes.</span></li>
+      </ul>
+      <a class="btn rv d3" href="https://zuelasom.streamlit.app/">Abrir o Studio</a>
+    </div>
+  </div>
+</section>
+
+<!-- GANHAR -->
+<section style="background:var(--fundo2)">
+  <div class="wrap">
+    <span class="kicker rv">Para artistas</span>
+    <h2 class="rv d1">A tua música <em>paga</em>.</h2>
+    <p class="sub rv d2">Os fãs pagam com cartão pelo Stripe e o dinheiro vai direto para a tua conta. A ZuelaSom fica com 10 %.</p>
+    <div class="ganhar">
+      <div class="g rv">
+        <div class="chips"><span>2 €</span><span>5 €</span><span>10 €</span><span>20 €</span></div>
+        <h3>Apoios</h3><p>Os fãs apoiam-te com um clique, com uma mensagem. Sem intermediários.</p>
+      </div>
+      <div class="g rv d1">
+        <div class="prateleira"><div>Beats WAV</div><div>Merch</div><div>Bilhetes</div></div>
+        <h3>A tua Loja</h3><p>Beats em WAV com amostra automática, merch com portes, bilhetes para os teus concertos.</p>
+      </div>
+      <div class="g rv d2">
+        <div class="bilhete-caixa"><div class="bilhete" id="bilhete">
+          <div class="face frente"><div class="ev"><small>Concerto</small><b>Noite ZuelaSom</b><span>Sáb · 21:00 · Lisboa</span></div><div class="corte">ENTRADA</div></div>
+          <div class="face verso"><img src="img/qr_zuelasom.svg" alt="QR code"><div><b>Bilhete com QR</b><small>À porta, a câmara diz: válido ou recusado.</small></div></div>
+        </div></div>
+        <h3>Bilhetes com QR</h3><p>O fã recebe o QR por email; cada bilhete só entra uma vez. <i style="color:var(--creme)">(Passa o rato no bilhete.)</i></p>
       </div>
     </div>
   </div>
 </section>
 
-<section>
+<!-- ZUELA -->
+<section class="zuela">
   <div class="wrap">
-    <span class="kicker">Ferramentas</span>
-    <h2>Tudo num só sítio</h2>
-    <p class="sub">Feito para artistas independentes que fazem tudo sozinhos.</p>
-    <div class="cartoes">
-      <div class="cartao"><div class="ico">1</div><h3>Studio ZuelaSom</h3><p>Medidores de volume (LUFS), pico, dinâmica e estéreo com a zona ideal; masterização com estilos e alvos para cada plataforma; antes e depois; MP3 320 kbps e WAV.</p></div>
-      <div class="cartao"><div class="ico">2</div><h3>Mesa de mistura</h3><p>Até 8 pistas — beat, voz e coros — com faders verticais, EQ, pan, mute e solo, como numa mesa a sério.</p></div>
-      <div class="cartao"><div class="ico">3</div><h3>Loja do artista</h3><p>Vende beats (com amostra para ouvir), merch e bilhetes. O comprador paga com cartão pelo Stripe; tu recebes na tua conta.</p></div>
-      <div class="cartao"><div class="ico">4</div><h3>Bilhetes com QR code</h3><p>O fã recebe o bilhete com QR code por email. À porta apontas a câmara: <b>Bilhete válido</b> ou <b>recusado</b>. Cada bilhete entra uma vez.</p></div>
-      <div class="cartao"><div class="ico">5</div><h3>Página e estatísticas</h3><p>Seguidores, streams, gostos e apoios. A tua página pública reúne músicas, álbuns, Loja e playlist do YouTube.</p></div>
-      <div class="cartao"><div class="ico">6</div><h3>Hub e destaque</h3><p>No Hub encontras produtores, realizadores e designers. E podes aparecer nas <b>Novas Vozes da Semana</b> no Início.</p></div>
-    </div>
+    <div class="grande rv">ZUELA.</div>
+    <p class="rv d1">Em kimbundu, <i>zuela</i> é <i>falar</i>. A ZuelaSom dá voz a quem ainda não tem espaço nas grandes plataformas.</p>
   </div>
 </section>
 
-<section class="alt" id="planos">
+<!-- PLANOS -->
+<section id="planos" style="background:var(--fundo2)">
   <div class="wrap">
-    <span class="kicker">Planos e preços</span>
-    <h2>Ouvir é grátis. Para sempre.</h2>
-    <p class="sub">Os artistas começam grátis e só pagam se quiserem crescer mais depressa.</p>
+    <span class="kicker rv">Planos e preços</span>
+    <h2 class="rv d1">Ouvir é <em>grátis</em>. Para sempre.</h2>
+    <p class="sub rv d2">Os artistas começam grátis e só pagam se quiserem crescer mais depressa.</p>
     <div class="planos">
-      <div class="plano">
-        <span class="para">Para quem ouve</span>
-        <h3>Ouvinte</h3>
-        <div class="preco">0 €</div>
+      <div class="plano rv">
+        <span class="para">Para quem ouve</span><h3>Ouvinte</h3><div class="preco">0 €</div>
         <p class="nota">Sem conta: 30 s de cada música. Com conta grátis: tudo.</p>
-        <ul>
-          <li>30 segundos de cada música, sem conta</li>
-          <li>Todas as músicas até ao fim, com conta grátis</li>
-          <li>Gostos, biblioteca, playlists e histórico</li>
-          <li>Seguir artistas</li>
-          <li>Apoiar artistas e comprar na Loja</li>
-        </ul>
+        <ul><li>30 segundos de cada música, sem conta</li><li>Todas as músicas até ao fim, com conta</li><li>Gostos, biblioteca, playlists e histórico</li><li>Seguir artistas</li><li>Apoiar e comprar na Loja</li></ul>
         <a class="btn sec" href="https://zuelasom.streamlit.app/">Começar a ouvir</a>
       </div>
-      <div class="plano">
-        <span class="para">Para artistas</span>
-        <h3>Artista</h3>
-        <div class="preco">0 €</div>
+      <div class="plano rv d1">
+        <span class="para">Para artistas</span><h3>Artista</h3><div class="preco">0 €</div>
         <p class="nota">Para começar a publicar.</p>
-        <ul>
-          <li>Até <b>5 músicas</b> publicadas</li>
-          <li>Página de artista pública</li>
-          <li>Studio ZuelaSom completo e mesa de mistura</li>
-          <li>Loja: beats, merch e bilhetes com QR</li>
-          <li>Apoios dos fãs</li>
-          <li class="nao">Selo de artista verificado</li>
-        </ul>
-        <a class="btn sec" href="https://zuelasom.streamlit.app/">Criar conta</a>
+        <ul><li>Até <b>5 músicas</b> publicadas</li><li>Página de artista pública</li><li>Studio e mesa de mistura</li><li>Loja: beats, merch e bilhetes</li><li>Apoios dos fãs</li><li class="nao">Selo de artista verificado</li></ul>
+        <a class="btn sec" href="https://zuelasom.streamlit.app/">Criar conta de artista</a>
       </div>
-      <div class="plano top">
-        <span class="fita">Para crescer</span>
-        <span class="para">Para artistas</span>
-        <h3>Artista Pro</h3>
-        <div class="preco">4 € <small>/ mês</small></div>
+      <div class="plano top rv d2">
+        <span class="fita">Para crescer</span><span class="para">Para artistas</span><h3>Artista Pro</h3><div class="preco">4 € <small>/ mês</small></div>
         <p class="nota">Cancelas quando quiseres.</p>
-        <ul>
-          <li><b>Músicas sem limite</b></li>
-          <li><b>Selo de artista verificado</b> ao lado do teu nome</li>
-          <li>Tudo o que o plano Artista tem</li>
-          <li>Pagamento mensal seguro pelo Stripe</li>
-          <li>Se cancelares, o Pro continua até ao fim do mês pago</li>
-        </ul>
+        <ul><li><b>Músicas sem limite</b></li><li><b>Selo de artista verificado</b></li><li>Tudo o que o plano Artista tem</li><li>Pagamento mensal seguro pelo Stripe</li><li>Se cancelares, continua até ao fim do mês pago</li></ul>
         <a class="btn" href="https://zuelasom.streamlit.app/">Passar a Pro</a>
       </div>
     </div>
     <div class="extras">
-      <div class="extra"><span class="v">10 %</span><b>Comissão da ZuelaSom</b><span>Nos apoios e nas vendas da Loja. O resto vai direto para a conta Stripe do artista.</span></div>
-      <div class="extra"><span class="v">5 € / semana</span><b>Destaque nas Novas Vozes</b><span>A tua música no Início da app durante uma semana (lugares limitados).</span></div>
-      <div class="extra"><span class="v">0 €</span><b>Para ouvir</b><span>Ouvir nunca custa nada: os artistas ganham com apoios e vendas, não com assinaturas de ouvintes.</span></div>
+      <div class="extra rv"><span class="v">10 %</span><b>Comissão da ZuelaSom</b><span>Nos apoios e nas vendas. O resto vai direto para o artista.</span></div>
+      <div class="extra rv d1"><span class="v">5 € / semana</span><b>Destaque nas Novas Vozes</b><span>A tua música no Início da app durante uma semana.</span></div>
+      <div class="extra rv d2"><span class="v">0 €</span><b>Para ouvir</b><span>Os artistas ganham com apoios e vendas, não com assinaturas de quem ouve.</span></div>
     </div>
   </div>
 </section>
 
-<section>
-  <div class="wrap duas">
-    <div>
-      <span class="kicker">Studio ZuelaSom</span>
-      <h2>Uma master pronta para o Spotify, no navegador.</h2>
-      <p class="sub" style="margin-bottom:18px">Carregas a tua mistura e vês logo se está no volume certo. Escolhes um estilo, afinas se
-        quiseres e masterizas. Comparas o antes e depois ao mesmo volume e publicas na ZuelaSom ou descarregas.</p>
-      <a class="btn" href="https://zuelasom.streamlit.app/">Experimentar o Studio</a>
-    </div>
-    <img class="shot" src="img/app_studio_analise.jpg" alt="Studio ZuelaSom: análise da faixa com medidores" loading="lazy">
+<!-- PERGUNTAS -->
+<section id="perguntas">
+  <div class="wrap" style="max-width:880px">
+    <span class="kicker rv">Perguntas</span>
+    <h2 class="rv d1">Perguntas frequentes</h2>
+    <details><summary>Preciso de pagar para ouvir música?</summary><p>Não. Sem conta ouves 30 segundos de cada música; com uma conta grátis ouves todas até ao fim.</p></details>
+    <details><summary>Porque é que sem conta só ouço 30 segundos?</summary><p>Para proteger os artistas: as audições só contam como streams quando são de pessoas com conta. Criar conta é grátis e leva um minuto.</p></details>
+    <details><summary>Sou artista. Como começo?</summary><p>Cria a conta na app e escolhe «Artista», com a tua foto. Depois publicas a tua primeira música (no plano grátis, até 5); cada música é vista pela equipa antes de ficar pública.</p></details>
+    <details><summary>Em que formato carrego a minha música?</summary><p>WAV ou MP3. Guardamos em MP3 a 192 kbps para tocar rápido em qualquer rede. Beats à venda: em WAV, com uma amostra de 60 s feita automaticamente.</p></details>
+    <details><summary>Como recebo o dinheiro?</summary><p>Pelo Stripe. Ligas a tua conta Stripe na app e os pagamentos vão diretamente para ti, menos a comissão de 10 %. A ZuelaSom nunca vê dados de cartões.</p></details>
+    <details><summary>O que ganho com o Artista Pro?</summary><p>Músicas sem limite e o selo de artista verificado, por 4 € por mês. Cancelas quando quiseres.</p></details>
+    <details><summary>Em que línguas está a app?</summary><p>Português, inglês, francês e espanhol — com tema escuro, claro e Meia-noite.</p></details>
   </div>
 </section>
 
-<section class="alt" id="perguntas">
-  <div class="wrap" style="max-width:860px">
-    <span class="kicker">Perguntas</span>
-    <h2>Perguntas frequentes</h2>
-    <details><summary>Preciso de pagar para ouvir música?</summary>
-      <p>Não. Sem conta ouves 30 segundos de cada música. Com uma conta grátis ouves todas até ao fim. Ouvir nunca custa nada.</p></details>
-    <details><summary>Porque é que sem conta só ouço 30 segundos?</summary>
-      <p>Para proteger os artistas: as audições só contam como streams quando são de pessoas com conta, e assim os números são honestos. Criar conta é grátis e leva um minuto.</p></details>
-    <details><summary>Sou artista. Como começo?</summary>
-      <p>Cria uma conta na app e escolhe «Artista». Depois completas a tua página e publicas a tua primeira música (no plano grátis, até 5); cada música é vista pela equipa antes de ficar pública.</p></details>
-    <details><summary>Como recebo o dinheiro dos apoios e das vendas?</summary>
-      <p>Pelo Stripe. Ligas a tua conta Stripe na app (Meu Perfil) e os pagamentos dos fãs vão diretamente para ti, menos a comissão de 10 % da ZuelaSom. A ZuelaSom nunca vê os dados dos cartões.</p></details>
-    <details><summary>O que ganho com o Artista Pro?</summary>
-      <p>Músicas sem limite e o selo de artista verificado, por 4 € por mês. Podes cancelar quando quiseres: o Pro continua até ao fim do período pago e depois voltas ao plano grátis.</p></details>
-    <details><summary>As minhas músicas são aprovadas antes de aparecer?</summary>
-      <p>Sim. Cada música nova é vista pela equipa antes de ficar pública, para manter a qualidade do catálogo.</p></details>
-    <details><summary>Em que línguas está a app?</summary>
-      <p>Português, inglês, francês e espanhol. Escolhes em Definições, onde também há tema claro, tema Meia-noite e texto grande.</p></details>
-  </div>
-</section>
-
-<section class="cta">
+<!-- FINAL -->
+<section class="final">
   <div class="wrap">
-    <h2>Pronto para ouvir?</h2>
-    <p>Carrega no play: os primeiros 30 segundos são por nossa conta.</p>
-    <div class="acoes" style="justify-content:center">
+    <div class="disco-final rv" aria-hidden="true"></div>
+    <h2 class="rv d1">Pronto para <em>ouvir</em>?</h2>
+    <p class="rv d2">Carrega no play: os primeiros 30 segundos são por nossa conta.</p>
+    <div class="acoes rv d3" style="justify-content:center">
       <a class="btn" href="https://zuelasom.streamlit.app/"><span class="play"></span>Abrir a ZuelaSom</a>
       <a class="btn sec" href="#planos">Ver planos</a>
     </div>
@@ -377,9 +594,120 @@ footer img{height:28px}
 <footer>
   <div class="wrap">
     <img src="img/zuelasom_logo.png" alt="ZuelaSom">
-    <span><a href="termos.html">Termos de utilização</a> · <a href="privacidade.html">Política de privacidade</a> · © 2026 ZuelaSom · AAUTS · Pagamentos seguros com Stripe</span>
+    <span><a href="termos.html">Termos de utilização</a> · <a href="privacidade.html">Política de privacidade</a> · © 2026 ZuelaSom · AAUTS</span>
   </div>
 </footer>
 
+<script>
+(function () {
+  var reduzir = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // topo opaco depois de descer
+  var topo = document.getElementById('topo');
+  function cab() { topo.classList.toggle('solido', scrollY > 40); }
+  addEventListener('scroll', cab, { passive: true }); cab();
+
+  // palavra a mudar no título
+  var palavras = ['fala.', 'vibra.', 'é teu.', 'paga.', 'une.'], k = 0, rod = document.getElementById('rodar');
+  if (!reduzir) setInterval(function () { k = (k + 1) % palavras.length; rod.innerHTML = '<span>' + palavras[k] + '</span>'; }, 2400);
+
+  // onda sonora do topo
+  var onda = document.getElementById('onda');
+  for (var i = 0; i < 90; i++) {
+    var b = document.createElement('i');
+    b.style.height = (25 + Math.abs(Math.sin(i * .37)) * 75) + '%';
+    b.style.animationDelay = (-(i * 0.07) % 1.3).toFixed(2) + 's';
+    b.style.animationDuration = (1 + (i % 5) * 0.15).toFixed(2) + 's';
+    onda.appendChild(b);
+  }
+
+  // braço do gira-discos pousa ao passar o rato (e sozinho depois de 1,5 s)
+  var gira = document.getElementById('gira');
+  gira.addEventListener('mouseenter', function () { gira.classList.add('a-tocar'); });
+  setTimeout(function () { gira.classList.add('a-tocar'); }, 1500);
+
+  // faixa de géneros: duplica para o movimento ser contínuo
+  var fx = document.getElementById('faixa'); fx.innerHTML += fx.innerHTML;
+
+  // revelar ao fazer scroll
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } });
+  }, { threshold: .15 });
+  document.querySelectorAll('.rv').forEach(function (el) { io.observe(el); });
+
+  // escolhe o teu lado
+  var botoes = document.querySelectorAll('.lados button'), marca = document.getElementById('marca');
+  function lado(nome) {
+    botoes.forEach(function (b) {
+      var on = b.dataset.lado === nome; b.classList.toggle('on', on); b.setAttribute('aria-selected', on);
+      if (on) { marca.style.left = b.offsetLeft + 'px'; marca.style.width = b.offsetWidth + 'px'; }
+    });
+    document.getElementById('lado-ouvinte').classList.toggle('on', nome === 'ouvinte');
+    document.getElementById('lado-artista').classList.toggle('on', nome === 'artista');
+  }
+  botoes.forEach(function (b) { b.addEventListener('click', function () { lado(b.dataset.lado); }); });
+  document.querySelectorAll('a[data-lado]').forEach(function (a) { a.addEventListener('click', function () { lado(a.dataset.lado); }); });
+  addEventListener('load', function () { lado('ouvinte'); }); addEventListener('resize', function () {
+    var on = document.querySelector('.lados button.on'); if (on) lado(on.dataset.lado); });
+
+  // demonstração dos 30 s (a 6x, para não ter de esperar 30 s a sério)
+  var ond = document.getElementById('ondas30'), barras = [];
+  for (var j = 0; j < 64; j++) { var c = document.createElement('i'); c.style.height = (18 + Math.abs(Math.sin(j * .5) * Math.cos(j * .13)) * 82) + '%'; ond.appendChild(c); barras.push(c); }
+  var NPREVIA = Math.round(64 * 30 / 222);   // 30 s de 3:42
+  var t = 0, tm = null, bp = document.getElementById('bplay'), fim = document.getElementById('fim30'), t30 = document.getElementById('t30');
+  function desenha() {
+    var n = Math.round(t / 30 * NPREVIA);
+    barras.forEach(function (b, x) { b.classList.toggle('f', x < n); });
+    t30.textContent = '0:' + ('0' + Math.floor(t)).slice(-2);
+  }
+  function para() { clearInterval(tm); tm = null; bp.innerHTML = '<span class="play"></span>'; }
+  function toca() {
+    if (tm) { para(); return; }
+    if (t >= 30) { t = 0; fim.classList.remove('on'); }
+    bp.innerHTML = '<span class="pausa"></span>';
+    tm = setInterval(function () { t += 0.5; desenha(); if (t >= 30) { para(); fim.classList.add('on'); } }, 100);
+  }
+  bp.addEventListener('click', toca);
+  document.getElementById('denovo').addEventListener('click', function () { t = 0; desenha(); fim.classList.remove('on'); toca(); });
+  desenha();
+  var io30 = new IntersectionObserver(function (es) { if (es[0].isIntersecting && !reduzir) { toca(); io30.disconnect(); } }, { threshold: .6 });
+  io30.observe(document.querySelector('.leitor30'));
+
+  // mini-estúdio: faders e masterização
+  var wave = document.getElementById('wave'), wb = [], mestre = false;
+  for (var w = 0; w < 72; w++) { var e = document.createElement('i'); wave.appendChild(e); wb.push(e); }
+  var faders = {};
+  document.querySelectorAll('.fader input').forEach(function (inp) {
+    faders[inp.dataset.f] = inp;
+    inp.addEventListener('input', function () {
+      var v = parseFloat(inp.value); inp.previousElementSibling.textContent = (v > 0 ? '+' : '') + v.toFixed(1); onda2();
+    });
+  });
+  function onda2() {
+    var vol = parseFloat(faders.volume.value), g = parseFloat(faders.graves.value), a = parseFloat(faders.agudos.value);
+    var ganho = mestre ? 1 : Math.pow(10, (vol + 6) / 40) * 0.55;
+    wb.forEach(function (b, x) {
+      var base = Math.abs(Math.sin(x * .31) * .6 + Math.sin(x * .07) * .4) * (0.7 + 0.3 * Math.sin(x * 1.7));
+      base *= 1 + (g * (x % 3 === 0 ? .03 : .01)) + (a * (x % 4 === 0 ? .025 : 0));
+      var h = mestre ? Math.min(.96, 0.62 + base * 0.38) : Math.min(1, base * ganho);
+      b.style.height = Math.max(4, h * 100) + '%';
+    });
+  }
+  function medidor(id, barra, txt, pos) { document.getElementById(id).textContent = txt; document.getElementById(barra).style.left = pos + '%'; }
+  document.getElementById('bmaster').addEventListener('click', function () {
+    mestre = !mestre;
+    document.getElementById('estado').textContent = mestre ? 'Depois · Masterizada' : 'Antes';
+    this.textContent = mestre ? 'Ouvir o antes' : 'Masterizar para plataformas de música';
+    if (mestre) { medidor('m-lufs', 'b-lufs', '-14.0 LUFS', 64); medidor('m-pico', 'b-pico', '-1.0 dBTP', 66); medidor('m-din', 'b-din', '8.6 dB', 62); }
+    else { medidor('m-lufs', 'b-lufs', '-21.4 LUFS', 20); medidor('m-pico', 'b-pico', '-4.8 dBTP', 40); medidor('m-din', 'b-din', '15.2 dB', 85); }
+    onda2();
+  });
+  onda2();
+
+  // bilhete: num ecrã tátil vira com um toque
+  var bil = document.getElementById('bilhete');
+  bil.addEventListener('click', function () { bil.classList.toggle('virado'); });
+})();
+</script>
 </body>
 </html>
