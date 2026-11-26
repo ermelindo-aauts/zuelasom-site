@@ -24,7 +24,7 @@
 <main class="wrap legal">
   <span class="kicker">Privacidade</span>
   <h1>Política de privacidade</h1>
-  <p class="data">Última atualização: 22 de novembro de 2026.</p>
+  <p class="data">Última atualização: 26 de novembro de 2026.</p>
 
   <nav class="indice" aria-label="Índice">
     <a href="#s1">1. Responsável</a><a href="#s2">2. Dados que tratamos</a><a href="#s3">3. Para quê</a>
@@ -82,22 +82,32 @@
   <p>Usamos estes fornecedores, que só tratam os dados necessários para a sua tarefa:</p>
   <ul>
     <li><b>Snowflake / Streamlit Community Cloud</b>. Servidores onde corre a app.</li>
-    <li><b>Alojamento aauts.pt</b>. Base de dados e ficheiros carregados (músicas, imagens), numa pasta sem acesso público.</li>
+    <li><b>Alojamento web do domínio aauts.pt</b> (servidores cPanel em <code>dnscpanel.com</code>). Base de dados e ficheiros
+      carregados (músicas, imagens), numa pasta sem acesso público.</li>
     <li><b>GitHub Pages</b>. Esta página de apresentação.</li>
     <li><b>Stripe</b>. Pagamentos (secção 4).</li>
     <li><b>Google (Gmail)</b>. Envio dos emails da app.</li>
     <li><b>Google Gemini</b> (opcional, só no Studio). Quando um artista pede conselho à Conselheira IA, enviamos as medições
       técnicas da faixa (volume, pico, dinâmica, equilíbrio tonal) e o título; o áudio não é enviado.</li>
-    <li><b>YouTube</b>. Quando um artista mostra a sua playlist, o leitor do YouTube é carregado na página dele.</li>
+    <li><b>YouTube</b> (Google). Quando um artista mostra a sua playlist, ou um anúncio do Hub tem um vídeo, o leitor é carregado
+      pelo domínio <code>youtube-nocookie.com</code>, o modo de privacidade reforçada do YouTube, que não usa cookies de rastreio antes de
+      carregares em reproduzir.</li>
+    <li><b>SoundCloud</b> (SoundCloud Global Limited &amp; Co. KG). Quando um anúncio do Hub tem uma faixa do SoundCloud, o leitor só
+      é carregado se carregares no botão «Carregar leitor do SoundCloud». A partir daí o SoundCloud pode usar cookies, segundo a
+      <a href="https://soundcloud.com/pages/privacy" rel="noopener">política de privacidade do SoundCloud</a>.</li>
   </ul>
-  <p>Alguns destes fornecedores podem tratar dados fora do Espaço Económico Europeu; nesses casos aplicam-se as garantias
-    previstas no RGPD (por exemplo, cláusulas contratuais-tipo ou decisões de adequação).</p>
+  <p><b>Transferências para fora do Espaço Económico Europeu.</b> Alguns destes fornecedores tratam dados nos Estados Unidos:
+    Snowflake / Streamlit, Google (Gmail, Gemini, YouTube), GitHub e Stripe. Nesses casos as transferências estão protegidas pelo
+    EU-US Data Privacy Framework (decisão de adequação da Comissão Europeia), quando o fornecedor está certificado, e pelas
+    cláusulas contratuais-tipo aprovadas pela Comissão Europeia, incluídas nos acordos de tratamento de dados (DPA) destes
+    fornecedores. Podes pedir mais informação através do contacto da secção 12.</p>
 
   <h2 id="s6">6. Cookies e armazenamento no navegador</h2>
   <ul>
     <li><b>Preferências</b> (<code>zuelasom_prefs</code>, 1 ano): tema, língua, tamanho do texto, animações, tocar a seguinte.</li>
     <li><b>Sessão</b> ("lembrar-me"): mantém-te com sessão iniciada neste dispositivo até saíres.</li>
-    <li>Cookies técnicos do Streamlit, necessários para a app funcionar.</li>
+    <li>Cookies técnicos do Streamlit, necessários para a app funcionar. As estatísticas de uso do Streamlit estão desligadas.</li>
+    <li>Cookies do SoundCloud, só depois de carregares no botão que mostra o leitor (secção 5).</li>
   </ul>
   <p>Não usamos cookies de publicidade nem de análise de terceiros.</p>
 
